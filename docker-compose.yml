@@ -1,0 +1,48 @@
+
+services:
+
+  api: 
+    
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    ports:
+      - "3000:3000"
+    
+    environment:
+      
+      
+      DATABASE_URL: mysql://root:7539174268z@db:3306/wweatherforecast
+      
+      JWT_SECRET: chibi 
+      WEATHERAPI_API_KEY: e480e368cfbb42e6958120437251607
+      NODE_ENV: development 
+    
+    depends_on:
+      - db 
+    restart: always
+
+  
+  db: 
+    
+    image: mysql:8.0
+    
+    environment:
+      MYSQL_ROOT_PASSWORD: 7539174268z 
+      MYSQL_DATABASE: wweatherforecast       
+      # MYSQL_USER: root                 
+      # MYSQL_PASSWORD: 7539174268z         
+    
+    ports:
+      - "3308:3306"
+    
+    volumes:
+      - db-data:/var/lib/mysql 
+    
+    restart: always
+     
+
+# 
+volumes:
+  db-data: 
